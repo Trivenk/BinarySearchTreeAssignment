@@ -92,7 +92,56 @@ public class MyBinarySearchTree<E extends Comparable<E>> implements BinarySearch
 
     @Override
     public void delete(E data) {
+        if(root==null)
+            return;
+        implementation.Node temp = root;
+        implementation.Node prev = null;
+        while(temp!=null && data.compareTo((E) temp.getData())!=0)
+        {
+            prev = temp;
+            if(data.compareTo((E) temp.getData())<0)
+            {
+                temp = (implementation.Node<E>) temp.getLeft();
+            }
+            else{
+                temp = (implementation.Node<E>) temp.getRight();
+            }
+        }
+        if(temp!=null)
+        {
+            if(temp.getLeft()==null)
+            {
+                if(data.compareTo((E) prev.getData())<=0)
+                    prev.setLeft(temp.getRight());
+                else
+                    prev.setRight(temp.getRight());
+            }
+            else if(temp.getRight()==null)
+            {
+                if(data.compareTo((E) prev.getData())<=0)
+                    prev.setLeft(temp.getLeft());
+                else
+                    prev.setRight(temp.getLeft());
+            }
+            else
+            {
+                implementation.Node successor = getSuccessor((implementation.Node<E>) temp.getRight());
+                delete((E) successor.getData());
+                temp.setData(successor.getData());
+            }
+        }
 
+
+    }
+
+    private implementation.Node getSuccessor(implementation.Node temp) {
+        implementation.Node res = temp;
+        while(temp!=null)
+        {
+            res = temp;
+            temp = (implementation.Node<E>) temp.getLeft();
+        }
+        return res;
     }
 
     @Override

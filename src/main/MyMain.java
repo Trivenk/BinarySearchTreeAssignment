@@ -13,8 +13,12 @@ public class MyMain {
         mt.insert(11);
         mt.insert(3);
         mt.inOrder(mt.getRoot());
+        mt.delete(3);
+        System.out.println();
+        mt.inOrder(mt.getRoot());
         System.out.println();
         System.out.println(mt.search(15));
+//        System.out.println();
         System.out.println(mt.height(mt.getRoot()));
     }
 }
